@@ -6,11 +6,13 @@ export const maxDuration = 300;
 
 async function getBrowser() {
   if (process.env.VERCEL) {
-    const chromium = (await import("@sparticuz/chromium")).default;
+    const chromium = (await import("@sparticuz/chromium-min")).default;
     const puppeteer = (await import("puppeteer-core")).default;
     return puppeteer.launch({
       args: chromium.args,
-      executablePath: await chromium.executablePath(),
+      executablePath: await chromium.executablePath(
+        "https://github.com/nichochar/chromium-binaries/releases/download/v149.0.0/chromium-v149.0.0-pack.tar"
+      ),
       headless: true,
     });
   }
@@ -33,7 +35,15 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "A valid URL is required." }, { status: 400 });
   }
 
-  const browser = await getBrowser();
+  let browser;
+  try {
+    browser = await getBrowser();
+  } catch {
+    return NextResponse.json(
+      { error: "PDF engine failed to start — please try again." },
+      { status: 503 }
+    );
+  }
 
   try {
     const fetchPage = await browser.newPage();

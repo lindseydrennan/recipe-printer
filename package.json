@@ -8,7 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@sparticuz/chromium": "^149.0.0",
+    "@sparticuz/chromium-min": "^149.0.0",
     "cheerio": "^1.2.0",
     "next": "16.2.9",
     "node-fetch": "^2.7.0",
