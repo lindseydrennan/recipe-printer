@@ -3,11 +3,11 @@
 @theme inline {
   --color-dark-green: #3a4e48;
   --color-light-green: #cdd9c5;
-  --color-burnt-orange: #bc7f6a;
+  --color-burnt-orange: #a5654e;
   --color-background: #fbfbf6;
   --color-image-background: #f1f0eb;
   --color-headlines: #3a3836;
-  --color-copy: #6d6966;
+  --color-copy: #5c5855;
   --color-borders: #e1dbd4;
 
   --font-serif: var(--font-libre-baskerville);

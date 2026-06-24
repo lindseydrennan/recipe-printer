@@ -33,11 +33,11 @@ Never hardcode colors or fonts — use these tokens. They are configured in `app
 |---|---|---|
 | `dark-green` | `#3a4e48` | Primary brand, headings, buttons |
 | `light-green` | `#cdd9c5` | Accents, highlights |
-| `burnt-orange` | `#bc7f6a` | Labels, eyebrows, section headers |
+| `burnt-orange` | `#a5654e` | Labels, eyebrows, section headers |
 | `background` | `#fbfbf6` | Page background |
 | `image-background` | `#f1f0eb` | Image placeholders |
 | `headlines` | `#3a3836` | UI headings |
-| `copy` | `#6d6966` | Body text |
+| `copy` | `#5c5855` | Body text |
 | `borders` | `#e1dbd4` | Dividers, input borders |
 
 | Token | Value | Usage |
