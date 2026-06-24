@@ -56,6 +56,23 @@ export function buildRecipeHTML(recipe: Recipe): string {
   if (recipe.ovenTemp)  metaItems.push(`<span class="meta-item">${tempIcon}<span>${recipe.ovenTemp}</span></span>`);
   if (recipe.servings && !recipe.ovenTemp) metaItems.push(`<span class="meta-item">${servingIcon}<span>Serves: ${recipe.servings}</span></span>`);
 
+  const totalInstructionChars = recipe.instructions.reduce((sum, s) => sum + s.length, 0);
+  const totalIngredientChars = recipe.ingredients.reduce((sum, s) => sum + s.length, 0);
+  const contentScore = totalInstructionChars + totalIngredientChars * 0.5;
+
+  const density: "normal" | "compact" | "dense" =
+    contentScore > 3000 ? "dense" :
+    contentScore > 1800 ? "compact" :
+    "normal";
+
+  const stepFontSize =      { normal: "9.5pt", compact: "8.5pt", dense: "7.5pt" }[density];
+  const stepLineHeight =    { normal: "13pt",  compact: "11.5pt", dense: "9.5pt" }[density];
+  const stepMargin =        { normal: "14pt",  compact: "10pt",  dense: "5pt" }[density];
+  const stepNumSize =       { normal: "16pt",  compact: "13pt",  dense: "10pt" }[density];
+  const ingredientFontSize =    { normal: "9pt", compact: "8pt", dense: "7.5pt" }[density];
+  const ingredientLineHeight =  { normal: "13pt", compact: "11pt", dense: "9.5pt" }[density];
+  const ingredientPadding =     { normal: "4pt", compact: "3pt", dense: "2pt" }[density];
+
   const ingredientItems = recipe.ingredients
     .map((i) => `<li>${safeText(i)}</li>`)
     .join("");
@@ -181,10 +198,10 @@ export function buildRecipeHTML(recipe: Recipe): string {
       padding: 0;
     }
     .ingredients-col li {
-      font-size: 9pt;
-      line-height: 13pt;
+      font-size: ${ingredientFontSize};
+      line-height: ${ingredientLineHeight};
       color: #6d6966;
-      padding: 4pt 0;
+      padding: ${ingredientPadding} 0;
       border-bottom: 0.5pt solid rgba(225, 219, 212, 0.5);
     }
     .ingredients-col li:last-child { border-bottom: none; }
@@ -210,23 +227,23 @@ export function buildRecipeHTML(recipe: Recipe): string {
       display: flex;
       gap: 12pt;
       align-items: flex-start;
-      margin-bottom: 14pt;
+      margin-bottom: ${stepMargin};
     }
     .step-num {
       font-family: 'Libre Baskerville', serif;
-      font-size: 16pt;
+      font-size: ${stepNumSize};
       font-weight: 400;
       color: #3a4e48;
       letter-spacing: -0.24pt;
-      line-height: 16pt;
+      line-height: ${stepNumSize};
       min-width: 10pt;
       flex-shrink: 0;
     }
     .step-text {
-      font-size: 9.5pt;
+      font-size: ${stepFontSize};
       font-weight: 400;
       color: #6d6966;
-      line-height: 13pt;
+      line-height: ${stepLineHeight};
       padding-top: 1.5pt;
     }
 
