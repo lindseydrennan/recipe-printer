@@ -20,7 +20,7 @@ function inferCategory(recipe: Recipe): string {
   if (/cake|cookie|brownie|pie|pudding|ice cream|fudge|tart|cupcake|cheesecake|macaron|donut|gelato|sorbet/.test(text)) return "Dessert";
   if (/pancake|waffle|omelette|frittata|french toast|oatmeal|granola|breakfast|brunch|scramble|cinnamon roll|monkey bread|scone|muffin|crepe|egg bake|quiche|biscuit/.test(text)) return "Breakfast";
   if (/smoothie|juice|cocktail|mocktail|lemonade|iced tea|milkshake|spritz|margarita|mojito|drink|latte|frappe/.test(text)) return "Drink";
-  if (/dip|bruschetta|crostini|spring roll|deviled egg|finger food|appetizer|starter|skewer|crostata|\bsoup\b|\bstew\b|\bchili\b|\bchowder\b|\bbisque\b|\bgumbo\b/.test(text)) return "Appetizer";
+  if (/dip|bruschetta|crostini|spring roll|deviled egg|finger food|appetizer|starter|skewer|crostata|\bsoup\b|\bstew\b|\bchili\b|\bchowder\b|\bbisque\b|\bgumbo\b|\bsnack\b|popcorn|trail mix|hummus|guacamole|salsa|nachos|pretzel|cracker|cheese ball|pinwheel/.test(text)) return "Appetizer";
   if (/\bsalad\b|coleslaw|pilaf|side dish|roasted (vegetable|potato|carrot|beet)|mashed potato|\brice\b|\bquinoa\b/.test(text)) return "Side";
   return "Entree";
 }
