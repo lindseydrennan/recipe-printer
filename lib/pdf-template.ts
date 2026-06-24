@@ -69,9 +69,9 @@ export function buildRecipeHTML(recipe: Recipe): string {
   const stepLineHeight =    { normal: "13pt",  compact: "11.5pt", dense: "9.5pt" }[density];
   const stepMargin =        { normal: "14pt",  compact: "10pt",  dense: "5pt" }[density];
   const stepNumSize =       { normal: "16pt",  compact: "13pt",  dense: "10pt" }[density];
-  const ingredientFontSize =    { normal: "9pt", compact: "8pt", dense: "7.5pt" }[density];
-  const ingredientLineHeight =  { normal: "13pt", compact: "11pt", dense: "9.5pt" }[density];
-  const ingredientPadding =     { normal: "4pt", compact: "3pt", dense: "2pt" }[density];
+  const ingredientFontSize = "9pt";
+  const ingredientLineHeight = "13pt";
+  const ingredientPadding = "4pt";
 
   const ingredientItems = recipe.ingredients
     .map((i) => `<li>${safeText(i)}</li>`)
