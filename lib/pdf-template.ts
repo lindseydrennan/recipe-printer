@@ -16,12 +16,13 @@ function cleanUrl(url: string): string {
 
 /** Infer a category from the recipe name and description */
 function inferCategory(recipe: Recipe): string {
-  const text = `${recipe.name} ${recipe.description}`.toLowerCase();
+  const text = `${recipe.name} ${recipe.description} ${recipe.ingredients.join(" ")} ${recipe.instructions.join(" ")}`.toLowerCase();
   if (/cake|cookie|brownie|pie|pudding|ice cream|fudge|tart|cupcake|cheesecake|macaron|donut|gelato|sorbet/.test(text)) return "Dessert";
-  if (/pancake|waffle|omelette|frittata|french toast|oatmeal|granola|breakfast|brunch|scramble/.test(text)) return "Breakfast";
+  if (/pancake|waffle|omelette|frittata|french toast|oatmeal|granola|breakfast|brunch|scramble|cinnamon roll|monkey bread|scone|muffin|crepe|egg bake|quiche|biscuit/.test(text)) return "Breakfast";
   if (/smoothie|juice|cocktail|mocktail|lemonade|iced tea|milkshake|spritz|margarita|mojito|drink|latte|frappe/.test(text)) return "Drink";
   if (/dip|bruschetta|crostini|spring roll|deviled egg|finger food|appetizer|starter|skewer|crostata/.test(text)) return "Appetizer";
   if (/\bsalad\b|coleslaw|pilaf|side dish|roasted (vegetable|potato|carrot|beet)|mashed potato|\brice\b|\bquinoa\b/.test(text)) return "Side";
+  if (/\bsoup\b|\bstew\b|\bchili\b|\bchowder\b|\bbisque\b|\bgumbo\b/.test(text)) return "Soup";
   return "Entree";
 }
 
