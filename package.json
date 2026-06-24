@@ -8,7 +8,10 @@
     "start": "next start"
   },
   "dependencies": {
+    "cheerio": "^1.2.0",
     "next": "16.2.9",
+    "node-fetch": "^2.7.0",
+    "puppeteer": "^25.2.0",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
@@ -19,5 +22,8 @@
     "@types/react-dom": "^19",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "allowScripts": {
+    "puppeteer@25.2.0": true
   }
 }
