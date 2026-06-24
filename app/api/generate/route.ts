@@ -1,7 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
-import puppeteer from "puppeteer";
 import { parseRecipeFromHTML } from "@/lib/scraper";
 import { buildRecipeHTML } from "@/lib/pdf-template";
+
+export const maxDuration = 300;
+
+async function getBrowser() {
+  if (process.env.VERCEL) {
+    const chromium = (await import("@sparticuz/chromium")).default;
+    const puppeteer = (await import("puppeteer-core")).default;
+    return puppeteer.launch({
+      args: chromium.args,
+      executablePath: await chromium.executablePath(),
+      headless: true,
+    });
+  }
+  const puppeteer = (await import("puppeteer")).default;
+  return puppeteer.launch({
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+  });
+}
 
 export async function POST(req: NextRequest) {
   let body: { url?: string };
@@ -16,12 +33,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "A valid URL is required." }, { status: 400 });
   }
 
-  const browser = await puppeteer.launch({
-    args: ["--no-sandbox", "--disable-setuid-sandbox"],
-  });
+  const browser = await getBrowser();
 
   try {
-    // Use Puppeteer to fetch — handles JS-rendered content and bypasses basic bot detection
     const fetchPage = await browser.newPage();
     await fetchPage.setUserAgent(
       "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
@@ -39,8 +53,6 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Render recipe card to PDF
-    // Viewport 816×1056 = 8.5×11in at 96dpi; template uses pt units (72dpi = exact Figma match)
     const pdfPage = await browser.newPage();
     await pdfPage.setViewport({ width: 816, height: 1056 });
     await pdfPage.setContent(buildRecipeHTML(recipe), { waitUntil: "load", timeout: 15000 });
