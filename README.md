@@ -1,36 +1,27 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Recipe Printer
 
-## Getting Started
+Paste any recipe URL. Get a clean, print-ready PDF.
 
-First, run the development server:
+Most recipe websites are a nightmare to print — ads, popups, and twenty paragraphs of backstory before the ingredients. Recipe Printer scrapes the actual recipe and formats it into a single 8.5×11 card you can print and keep.
+
+## How it works
+
+Drop a URL into the input field and hit **Get PDF**. The app fetches the page using a headless browser (so it works even on JavaScript-heavy sites), extracts the recipe data, and renders it into a formatted PDF using your design system — Libre Baskerville for the title, Plus Jakarta Sans for everything else, with clean dividers and a two-column layout for ingredients and directions.
+
+The scraper pulls from JSON-LD structured data when available and falls back to Elementor widget markup, recipe plugin class conventions, and measurement-based heuristics for sites that don't use structured data. Oven temperature and cooking method are detected automatically to label the time correctly as either Bake Time or Cook Time.
+
+## Stack
+
+- **Next.js** (App Router)
+- **Tailwind CSS**
+- **Puppeteer** — handles both fetching (bypasses bot detection) and PDF generation
+- **Cheerio** — HTML parsing for recipe extraction
+
+## Running locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Open [http://localhost:3000](http://localhost:3000).
